@@ -1,0 +1,81 @@
+{% extends 'CEAS/base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/CEAS_website.css' %}"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Trirong" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+        <script src = "{% static 'js/jquery.tablesorter.js' %}"></script>
+        <script src = "{% static 'js/drag.js' %}"></script>
+
+        <style>
+        .ui-sortable tr {
+        		cursor:pointer;
+            background-color: #fff;
+        }
+
+        </style>
+
+    </head>
+
+    <form method="post">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+      {% endfor %}
+      <div class="text-center">
+        <!-- Syntax? Should be class="btn btn-info". However, that changes the styling of the button to a blue background, which no longer matches the other places it is used. -->
+        <button id="run_matching" type="submit" class="btn info">Run Matching</button>
+      </div>
+
+
+  <div class="staffpage">
+  <h2>{{project.title}}</h2>
+  <input type="hidden" name ="proj_id" value="{{project.id}}">
+  <h4>Preferred Student: {{project.pref_student}}</h4>
+  <div class="outer">
+    <table class="table-hover table" id="diagnosis_list">
+      <thead>
+        <tr >
+          <th>Priority</th>
+          <th>Contact Name(s)</th>
+          <th>Gender</th>
+          <th>Race</th>
+          <th>GPA</th>
+          <th>Grade</th>
+          <th>Student Major</th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+
+            {%for s in student %}
+            <tr class='ui-sortable-handle' style="display: table-row;">
+                <td class='priority'>{{object.score}}</td>
+                <td style="display: none;">
+                <input type="hidden" name = 'change-me' value="{{s.id }}">
+                </td>
+                <!--<td class='s_id' style="display: none;">{{s.id }}</td>-->
+                <td>{{s.full_Name }}</td>
+                <td>{{ s.gender }}</td>
+                <td>{{ s.race }}</td>
+                <td>{{ s.GPA }}</td>
+                <td>{{ s.grade_level_as_of_next_fall }}</td>
+                <td>{{ s.primary_Major }}</td>
+              </tr>
+
+            {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+</form>
+
+{% endblock %}

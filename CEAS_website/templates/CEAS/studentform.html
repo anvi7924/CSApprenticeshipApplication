@@ -1,0 +1,131 @@
+{% extends 'CEAS/base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+
+{% block content %}
+<script>
+  $(window).load(function(){
+    $('#student_form').hide();
+    $('#sorry_div').hide();
+    //if the submit button is clicked
+    $("#btnSubmit").click(function(){
+      var $boxes = $('input[name=Criteria]:checked');
+      //check if all the checkboxes (5) have been selected
+      if($boxes.length == 5){
+        $('#student_form').show();
+        $('#program_criteria').hide();
+        $('#sorry_div').hide();
+      }else{
+        $('#sorry_div').show();
+        $('#program_criteria').show();
+        $('#student_form').hide();
+      }
+    });
+  });
+</script>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/CEAS_website.css' %}"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Trirong" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    </head>
+
+    <!-- this is the html that will present to the student checkboxes that will determine if student qualifies for the program -->
+    <div class="panel-body" id="program_criteria" title="Qualification Criteria">
+        <p>Please answer the following questions to continue with your application to the Discovery Learning Apprenticeship Program</p>
+        <br>
+        <p style="text-decoration: underline">Yes</p>
+        <input type="checkbox" name="Criteria" value="Previously Selected" style="margin:5px"> I have not been selected for a Discovery Learning Apprenticeship Program project before<br></input>
+        <input type="checkbox" name="Criteria" value="GPA" style="margin:5px"> I have a GPA of 3.0 or greater<br></input>
+        <input type="checkbox" name="Criteria" value="FullYear" style="margin:5px"> I can work on this project the entire academic year<br></input>
+        <input type="checkbox" name="Criteria" value="Grad" style="margin:5px"> I am not a graduate student or in the MS year of a BS/MS degree<br></input>
+        <input type="checkbox" name="Criteria" value="College of Eng" style="margin:5px"> I am a student in the college of Engineering and Applied Science<br></input>
+        <br>
+        <input id ='btnSubmit' type="submit">
+        <br>
+    </div>
+    <!-- This is the panel that will be displayed if the student does not check all the criteria boxes above -->
+    <div class="panel-body" id='sorry_div'>
+      <p> Sorry, you are not eligible to participate in the Discovery Learning Apprenticeship Program.  You must meet all the criteria above.</p>
+    </div>
+
+    <div id="student_form" class="content">
+    <h1>Discovery Learning Apprenticeship Application</h1>
+    <img src="{% static "mountains.jpg" %}" alt="My image"/>
+
+            <form id="student_form" method="post" action="/CEAS/studentform/">
+              {% csrf_token %}
+              {% for hidden in form.hidden_fields %}
+                  {{ hidden }}
+              {% endfor %}
+
+            <div>
+              <h3>Demographic Information</h3>
+              {% for field in form.visible_fields|slice:"0:6"  %}
+
+              <td>
+                <p>
+                  {{ field.errors }}
+                  {{ field.help_text }}
+                  {{ field.label_tag }} {{ field }}
+                </p>
+              </td>
+              {% endfor %}
+
+                <div>
+                <h3>Academic Information</h3>
+                {% for field in form.visible_fields|slice:"6:13"  %}
+                <td>
+                  <p>
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field.label_tag }} {{ field }}
+                  </p>
+                </td>
+                {% endfor %}
+                </div>
+
+                <div>
+                <h3>Apprenticeship Information</h3>
+                {% for field in form.visible_fields|slice:"13:15"  %}
+                <td>
+                  <p>
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field.label_tag }} {{ field }}
+                  </p>
+                </td>
+                {% endfor %}
+
+                <h5>Please choose 5 projects in order of your preference from the list below</h5>
+                {% for field in form.visible_fields|slice:"15:23"  %}
+                <td>
+                  <p>
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field.label_tag }} {{ field }}
+                  </p>
+                </td>
+                {% endfor %}
+                </div>
+
+                <div>
+                <h3>Skills, Resume, and Cover Letter</h3>
+                <h5>Please enter three skills that you think make you a good candidate for the DLC Apprenticeship Program</h5>
+                  {% for field in form.visible_fields|slice:"23:28"  %}
+                <td>
+                  <p>
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field.label_tag }} {{ field }}
+                  </p>
+                </td>
+                {% endfor %}
+                </div>
+
+                <input type="submit" name="submit" value="Submit Form" />
+          </form>
+  </div>
+{% endblock %}

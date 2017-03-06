@@ -1,0 +1,188 @@
+body {
+
+	background: #fff no-repeat 0 0;
+	-webkit-background-size: 100% auto;
+	background-size: 100% auto;
+/*	color: #fff;
+	font-family: Helvetica Neue, Helvetica, Open sans, Arial, sans-serif;
+	background-color: #FFFFFF;*/
+	text-align: justify;
+}
+
+
+.staffpage .outer table.tablesorter thead tr .tablesorter-header {
+    background-image: url('../CEAS_website/bg.gif');
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+.staffpage .outer table.tablesorter thead tr .tablesorter-headerDesc {
+    background-image: url('../CEAS_website/asc.gif');
+}
+
+.staffpage .outer table.tablesorter thead tr .tablesorter-headerAsc {
+    background-image: url('../CEAS_website/desc.gif');
+}
+
+
+.staffpage {
+	padding: 10px 60px 10px 60px;
+
+}
+
+.staffpage .outer {
+	background-color: #ecf0f1;/*#D2D7D3;*/
+	-webkit-box-shadow: 0 8px 6px -6px black;
+		-moz-box-shadow: 0 8px 6px -6px black;
+				 box-shadow: 0 8px 6px -6px black;
+	/*background-color: #3498db;#019875;
+
+	color: -internal-quirk-inherit;*/
+	border-radius: 5px;
+}
+
+.staffpage .outer table{
+	padding: 10px 20px 10px 20px;
+	border-radius: 5px;
+	border-collapse:separate;
+	border-spacing: 1px;
+}
+
+
+
+.staffpage div table thead{
+	font-family: 'Open Sans', sans-serif;
+	background: linear-gradient(70deg, #5693bd 31%, #83c0e9 75%);
+	color: #ffffff;
+}
+
+.content div {
+	background-color: #ecf0f1;
+}
+
+.content form{
+	padding: 10px 60px 10px 60px;
+}
+
+h3 {
+	padding-left: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-family: 'Open Sans', sans-serif;
+	background: linear-gradient(70deg, #3498db 31%, #2cb5e8 75%);
+	-webkit-box-shadow: 0 8px 6px -6px black;
+		-moz-box-shadow: 0 8px 6px -6px black;
+				 box-shadow: 0 8px 6px -6px black;
+	/*background-color: #3498db;#019875;
+
+	color: -internal-quirk-inherit;*/
+	border-radius: 5px;
+	color: #ffffff;
+}
+
+label {
+	display: table-cell;
+ 	vertical-align: middle;
+ }
+
+select {
+	border: 2px solid #dadada;
+	border-radius: 7px;
+	display: table-cell;
+	margin-left: 30px;
+}
+
+textarea {
+	border: 2px solid #dadada;
+	border-radius: 7px;
+	display: table-cell;
+	margin-left: 30px;
+	width: 600px;
+
+}
+
+input {
+	border: 2px solid #dadada;
+	border-radius: 7px;
+	display: table-cell;
+	margin-left: 30px;
+	margin-top: 2px;
+  /*
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+
+    -webkit-box-shadow: 0px 0px 4px #4195fc;
+       -moz-box-shadow: 0px 0px 4px #4195fc;
+            box-shadow: 0px 0px 4px #4195fc;
+*/}
+
+
+input:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+
+p {
+	font-family: 'Open Sans', sans-serif;
+	display: table-row;
+}
+
+h1 {
+	font-family: 'Fira Sans', sans-serif;
+	font-style: bold;
+	text-align: center;
+	font-size:44px;
+    height:50px
+}
+
+.subtitle {
+	font-family: 'Fira Sans', sans-serif;
+	font-style: bold;
+	text-align: center;
+	font-size:26px;
+}
+
+li {
+	list-style-type: none;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	width: 100%;
+/*	margin-top: 30px;
+	margin-bottom:30px;*/
+	padding: 10px 20px 10px 20px;
+	opacity: 0.75;
+
+}
+
+.index_background{
+    background-image: url("../mountains.jpg");
+    background-color: #cccccc;
+		height: 450px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  	text-align: center;
+		margin: 5px;
+		background-position: top 20px bottom 10px;
+}
+
+.index_button{
+	padding: 2px;
+	margin-top: 10px;
+	background-color: white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	text-align: center;
+}
+
+.index_description{
+    position: absolute;
+    bottom: 0;
+		margin: 5px;
+}

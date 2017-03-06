@@ -1,0 +1,124 @@
+{% extends 'CEAS/base.html' %}
+
+{% block content %}
+
+<head>
+    <style>
+    .fix-padding {
+        padding: 10px 60px 10px 60px;
+    }
+
+    </style>
+
+</head>
+
+
+
+<div class="fix-padding">
+<h2 id="header_title" class="text-center"></h2>
+<div id="header_description" class="text-center"><p align="Center"></p>
+</div>
+<br/><br/>
+<div class="text-center">
+  <button id="student_major_button" type="button" class="btn info">Student Major</button>
+  <button id="project_department_button" type="button" class="btn info">Project Department</button>
+</div>
+<br/><br/>
+
+<table id="project_list_table" class="table-hover table-striped table">
+  <thead>
+    <tr class="info">
+      <th>Project Name</th>
+      <th>Contact Name(s)</th>
+      <th>Complete Description</th>
+      <th>Requirements</th>
+      <th>Department</th>
+      <th>Student Major</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for object in project %}
+    <tr>
+      <td > <a href="./?value={{object.title}}">{{ object.title }} </td>
+      <td > {{ object.primary_faculty_member }} / {{ object.secondary_faculty_member }} </td>
+      <td > {{ object.description }} </td>
+      <td > {{ object.special_requirements }}  </td>
+      <td > {{ object.primary_faculty_department }} </td>
+      <td >
+        {%for i in object.from_what_areas_do_you_wish_to_recruit_student %}
+        {{i}}
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+</div>
+<script>
+//this example of row grouping was taken from the following sample
+// https://datatables.net/examples/advanced_init/row_grouping.html
+$(document).ready(function() {
+
+  $( "#student_major_button" ).click(function() {
+    var table = $('#project_list_table').DataTable();
+    table.destroy();
+    setuptable(5);
+  });
+
+  $( "#project_department_button" ).click(function() {
+    var table = $('#project_list_table').DataTable();
+    table.destroy();
+    setuptable(4);
+  });
+
+  //Set the faculty affiliation
+  setuptable(4);
+} );
+
+function setuptable(column){
+  if (column == 4) {
+    $('#header_title').text('Complete Listing of Discovery Learning Apprenticeships by Faculty Affiliation with a Department or Program');
+    $('#header_description').text('Please note that this list is sorted by the department or program of the faculty member offering the apprenticeship. Students from other majors may still be able to apply for the project.')
+  } else if (column == 5){
+      $('#header_title').text('Complete Listing of Discovery Learning Apprenticeships by Desired Student Major');
+      $('#header_description').text('Please note that this list is sorted by the major of the desired student. Students from other majors may still be able to apply for the project.')
+  }
+
+  var table = $('#project_list_table').DataTable({
+      "columnDefs": [
+          { "visible": false, "targets": column}
+      ],
+      "order": [[ column, 'asc' ]],
+      "displayLength": 25,
+      "drawCallback": function ( settings ) {
+          var api = this.api();
+          var rows = api.rows( {page:'current'} ).nodes();
+          var last=null;
+
+          api.column(column, {page:'current'} ).data().each( function ( group, i ) {
+              if ( last !== group ) {
+                  $(rows).eq( i ).before(
+                      '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                  );
+
+                  last = group;
+              }
+          } );
+        }
+    } );
+
+  // Order by the grouping
+  $('#example project_list_table').on( 'click', 'tr.group', function () {
+      var currentOrder = table.order()[0];
+      if ( currentOrder[0] === column && currentOrder[1] === 'asc' ) {
+          table.order( [ column, 'desc' ] ).draw();
+      }
+      else {
+          table.order( [ column, 'asc' ] ).draw();
+      }
+  } );
+}
+</script>
+
+{% endblock %}

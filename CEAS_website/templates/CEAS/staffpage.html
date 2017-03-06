@@ -1,0 +1,94 @@
+{% extends 'CEAS/base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/CEAS_website.css' %}"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Trirong" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+        <script src = "{% static 'js/jquery.tablesorter.js' %}"></script>
+        <script src = "{% static 'js/drag.js' %}"></script>
+
+        <style>
+        .ui-sortable tr {
+        		cursor:pointer;
+            background-color: #fff;
+          }
+
+        a {
+          color: #fff;
+        }
+
+        a:hover{
+          color: #fff;
+        }
+
+        </style>
+
+    </head>
+
+  <div class="staffpage">
+  <h1>Matching Schema</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+      {% endfor %}
+      <div class="text-center">
+        <!-- Syntax? Should be class="btn btn-info". However, that changes the styling of the button to a blue background, which no longer matches the other places it is used. -->
+        <button id="run_matching" type="submit" class="btn info">Run Matching</button>
+      </div>
+      <div class="text-center">
+        <a class="btn btn-link" href="/static/Matrix.xlsx" download>Download Matrix (.xlsx)</a>
+      </div>
+    </form>
+
+              {%for p in project %}
+              <div class="outer">
+              <table class="table-hover table" id="diagnosis_list">
+                <thead>
+                  <h3><a href="./?value={{p.title}}">{{ p.title }}</a></h3>
+                  <tr >
+                    <th>Priority</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>GPA</th>
+                    <th>Year</th>
+                  </tr>
+
+                </thead>
+                <tbody class = 'ui-sortable'>
+                  {% for object in result_match %}
+
+                    {% if p.id == object.project_id%}
+
+
+                        {%for s in student %}
+                          {% if s.id == object.student_id%}
+                          <tr class='ui-sortable-handle' style="display: table-row;">
+                            <td class='priority'></td>
+                            <td>{{s.full_Name }}</td>
+                            <td>{{object.score}}</td>
+                            <td>{{ s.GPA }}</td>
+                            <td>{{ s.grade_level_as_of_next_fall }}</td>
+                            </tr>
+                          {% endif %}
+                      {% endfor %}
+
+                    {% endif %}
+
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% endfor %}
+  </div>
+
+
+
+{% endblock %}
